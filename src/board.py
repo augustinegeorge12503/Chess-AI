@@ -49,6 +49,37 @@ class Board:
             calculate all the possible move for a specific at a specific position
         '''
 
+        def pawn_moves():
+            steps = 1 if piece.moved else 2
+
+            # vertical moves
+            start = row + piece.dir
+            end = row + (piece.dir * (1 + steps))
+            for move_row in range(start, end, piece.dir):
+                if Square.in_range(move_row):
+                    if self.squares[move_row][col].isempty():
+                        initial = Square(row, col)
+                        final = Square(move_row, col)
+
+                        move = Move(initial, final)
+                        piece.add_move(move)
+                    else:
+                        break
+                else:
+                    break
+            
+            # diagonal moves
+            move_row = row + piece.dir
+            move_cols = [col - 1, col + 1]
+            for move_col in move_cols:
+                if Square.in_range(move_row, move_col):
+                    if self.squares[move_row][move_col].has_rival_piece(piece.color):
+                        initial = Square(row, col)
+                        final = Square(move_row, move_col)
+
+                        move = Move(initial, final)
+                        piece.add_move(move)
+
         def knight_moves():
             possible_moves = [
                 (row - 2, col + 1),
@@ -71,22 +102,10 @@ class Board:
                         move = Move(initial, final)
                         piece.add_move(move)
 
-
-        if isinstance(piece, Pawn):
-            pass
-            
-        elif isinstance(piece, Knight):
-            knight_moves()
-
-        elif isinstance(piece, Bishop):
-            pass
-
-        elif isinstance(piece, Rook):
-            pass
-
-        elif isinstance(piece, Queen):
-            pass
-
-        elif isinstance(piece, King):
-            pass
+        if isinstance(piece, Pawn): pawn_moves()         
+        elif isinstance(piece, Knight): knight_moves()
+        elif isinstance(piece, Bishop): pass
+        elif isinstance(piece, Rook): pass
+        elif isinstance(piece, Queen): pass
+        elif isinstance(piece, King): pass
         
