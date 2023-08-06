@@ -36,7 +36,7 @@ class Board:
         # rook
         self.squares[row_other][0] = Square(row_other, 0, Rook(color))
         self.squares[row_other][7] = Square(row_other, 7, Rook(color))
-        
+
         # queen
         self.squares[row_other][3] = Square(row_other, 3, Queen(color))
         
@@ -128,7 +128,26 @@ class Board:
                     else: break
 
         def king_moves():
-            pass
+            possible_moves = [
+                (row - 1, col - 1),
+                (row - 1, col),
+                (row - 1, col + 1),
+                (row, col - 1),
+                (row, col + 1),
+                (row + 1, col - 1),
+                (row + 1, col),
+                (row + 1, col + 1)
+            ]
+
+            for possible_move in possible_moves:
+                move_row, move_col = possible_move
+                if Square.in_range(move_row, move_col):
+                    if self.squares[move_row][move_col].isempty_or_rival(piece.color):
+                        initial = Square(row, col)
+                        final = Square(move_row, move_col)
+
+                        move = Move(initial, final)
+                        piece.add_move(move)
 
         if isinstance(piece, Pawn):
             pawn_moves()         
