@@ -173,7 +173,6 @@ class Board:
 
         piece.moved = True
         piece.clear_moves()
-        
         self.last_move = move
 
     def valid_move(self, piece, move): 

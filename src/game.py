@@ -26,7 +26,19 @@ class Game:
                 rect = (col * SQSIZE, row * SQSIZE, SQSIZE, SQSIZE)
                 
                 pygame.draw.rect(surface, color, rect)
-    
+
+                if col == 0:
+                    color = theme.bg.dark if row % 2 == 0 else theme.bg.light
+                    label = self.config.font.render(str(ROW - row), 1, color)
+                    label_pos = (5, 5 + row * SQSIZE)
+                    surface.blit(label, label_pos)
+
+                if row == 7:
+                    color = theme.bg.light if col % 2 == 0 else theme.bg.dark
+                    label = self.config.font.render(Square.get_alphacol(col), 1, color)
+                    label_pos = (col * SQSIZE + SQSIZE - 20, HEIGHT - 20)
+                    surface.blit(label, label_pos)
+
     def show_pieces(self, surface):
         for row in range(ROW):
             for col in range(COL):
