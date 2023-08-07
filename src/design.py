@@ -31,6 +31,7 @@ class Design:
         elif page == 'key':
             self.show_text(self.small_font, 'Escape:  Go Back', 400, 300, surface)
             self.show_text(self.small_font, 'R:  Reset Board', 400, 400, surface)
+            self.show_text(self.small_font, 'Z:  Change Theme', 400, 500, surface)
 
     # set methods
     def set_background(self, bg_name):
